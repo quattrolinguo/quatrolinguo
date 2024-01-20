@@ -7,7 +7,7 @@ const openai = new OpenAI(process.env.OPENAI_API_KEY);
 export async function POST(request) {
     const body = await request.json();
     console.log(body);
-    const { language, numberOfQuestions } = body;
+    const { language, numberOfQuestions, title } = body;
     const prompt = `The language is ${language} and the number of questions is ${numberOfQuestions}`
     try {
         const response = await openai.chat.completions.create({
@@ -28,7 +28,7 @@ export async function POST(request) {
         const content = response.choices[0].message.content;
         const { questions } = JSON.parse(content);
         console.log(questions);
-        await db.generateQuiz(questions);
+        await db.generateQuiz(questions, title, language);
         return NextResponse.json(questions)
     } catch (error) {
         return new Response(

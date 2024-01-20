@@ -1,5 +1,6 @@
 import PocketBase from 'pocketbase';
 import { cookies } from 'next/headers';
+import { title } from 'process';
 
 export const POCKET_BASE_URL = "https://quattro-lingo.pockethost.io/";
 
@@ -58,6 +59,58 @@ export class DatabaseClient {
         return this.client.authStore.model;
     }
 
+    async getOptionByID(id) { 
+        try {
+            const result = await this.client.collection("options").get(id);
+            console.log('get option by id:', result);
+            return result;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async getQuestionByQuizId(id) {
+        try {
+            const result = await this.client.collection("quizzes").getOne(id);
+            console.log('get question by id:', result);
+            return result;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    
+
+    async getFullQuizById(id) {
+        try {
+            const result = [];
+            const questions = await this.client.collection("quizzes").getQuestionByQuizId(id).questions;
+
+            for (const question of questions) {
+                const options = await this.client.collection("questions").getOptionsByQuestionId(question.id);
+                for (const option of options) {
+                    const answer = await this.client.collection("options").getAnswerByOptionId(option.id);
+                    result[question.id] = {
+                        question: question.question,
+                        options: options,
+                        answer: answer,
+                    }
+                }
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async getAnswerByQuestionID(id) {
+        try {
+            const result = await this.client.collection("answers").getOne(id);
+            console.log('get answer by id:', result);
+            return result;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+s
     async createOptions(optionslist, answer) {
         const optionsid = [];
         try {
@@ -110,12 +163,12 @@ export class DatabaseClient {
         }
     }
 
-    async generateQuiz(list) {
+    async generateQuiz(list, title, language) {
         const cookieStore = cookies();
         const user = await this.getUser(cookieStore);
-
         try {
             const questionsid = [];
+            
             for (const item of list) {
                 const answersid = await this.createOptions(item.options, item.answer);
                 console.log(answersid)
@@ -123,7 +176,7 @@ export class DatabaseClient {
                 const questionid = await this.createQuestion(item.question, answersid);
                 questionsid.push(questionid);
             }
-            this.createQuiz('Quiz', 'Language', questionsid, user.id)
+            this.createQuiz(title, language, questionsid, user.id)
         } catch (err) {
             console.error(err);
         }
