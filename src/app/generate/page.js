@@ -8,6 +8,7 @@ export default function Home() {
     const router = useRouter();
     const [language, setLanguage] = useState('');
     const [numberOfQuestions, setNumberOfQuestions] = useState('');
+    const [title, setTitle] = useState('');
     const [questions, setQuestions] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -19,7 +20,7 @@ export default function Home() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ language, numberOfQuestions }),
+                body: JSON.stringify({ language, numberOfQuestions, title }),
             });
 
             const data = await response.json();
@@ -31,7 +32,6 @@ export default function Home() {
             setLoading(false);
         }
     };
-    generateTest();
     return (
         <div className="body-bg pt-12 md:pt-20 pb-6 px-2 md:px-0 font-light flex-auto">
             <div className="bg-white max-w-xl mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
@@ -60,6 +60,16 @@ export default function Home() {
                                 placeholder="Enter the number of questions"
                                 value={numberOfQuestions}
                                 onChange={(e) => setNumberOfQuestions(e.target.value)}
+                            />
+                        </label>
+                        <label className="">
+                            <span className="text-gray-700">Title:</span>
+                            <input
+                                type="text"
+                                className="mt-1 p-2 block w-full rounded-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300 text-black"
+                                placeholder="Enter the title of your custom quiz"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
                             />
                         </label>
 
