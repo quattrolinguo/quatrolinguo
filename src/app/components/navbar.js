@@ -1,8 +1,21 @@
 import Icon from '@mdi/react';
 import { mdiSchoolOutline } from '@mdi/js';
 import Link from 'next/link';
+import db from '../../db';
+import { use } from 'react';
+import { cookies } from 'next/headers';
+import Logout from './logout';
+
+const getUser = async () => {
+    const cookieStore = cookies();
+
+    const result = await db.getUser(cookieStore);
+
+    return result;
+}
 
 export default function Navbar() {
+    const user = getUser();
     return (
         <div className="flex justify-between items-center w-screen h-20 px-6 pt-3 bg-transparent">
             <div
@@ -28,16 +41,22 @@ export default function Navbar() {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-row gap-6 items-center justify-start">
-                <div className="text-dark-dark text-left font-medium text-xl leading-6 relative">
-                    Login
+            {user
+                ? <div>
+                    <p>Welcome, {user.username}</p>
+                    <Logout />
                 </div>
-                <div className="bg-[#dc2626] rounded-lg pt-2 px-4 pb-2 flex flex-row gap-2.5 items-center justify-center">
-                    <div className="text-white text-center font-medium text-2xl leading-6 relative flex items-center justify-center">
-                        Register
+                : <div className="flex flex-row gap-6 items-center justify-start">
+                    <div className="text-dark-dark text-left font-medium text-xl leading-6 relative">
+                        Login
+                    </div>
+                    <div className="bg-[#dc2626] rounded-lg pt-2 px-4 pb-2 flex flex-row gap-2.5 items-center justify-center">
+                        <div className="text-white text-center font-medium text-2xl leading-6 relative flex items-center justify-center">
+                            Register
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     );
 }

@@ -28,11 +28,11 @@ export default function Home() {
         <div className="body-bg pt-12 md:pt-20 pb-6 px-2 md:px-0 font-light flex-auto">
             <div className="bg-white max-w-xl mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
                 <section>
-                    <h1 className="text-3xl text-black font-bold">Generate quiz</h1>
+                    <h1 className="text-3xl text-black font-bold">Generate Quiz</h1>
                 </section>
 
                 <section className="mt-5">
-                    <form className="space-y-4">
+                    <form className="space-y-5 flex flex-col">
                         <label className="">
                             <span className="text-gray-700">Language:</span>
                             <input
