@@ -15,7 +15,7 @@ export default function Home() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ topic, numberOfQuestions }),
+                body: JSON.stringify({ language, numberOfQuestions }),
             });
 
             const data = await response.json();
@@ -25,43 +25,46 @@ export default function Home() {
         }
     };
     return (
-        <div className="flex min-h-screen flex-col items-center justify-between p-24 bg-red-400 backdrop-blur" style={{
-            background: 'var(--background-gradient, linear-gradient(180deg, rgba(248, 113, 113, 1) 0%, rgba(255, 207, 36, 1) 100%))',
-            backdropFilter: 'blur(2px)'
-        }}>
-            <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
-                <h1 className="text-3xl mb-6 text-black">Generate quiz</h1>
+        <div className="body-bg pt-12 md:pt-20 pb-6 px-2 md:px-0 font-light flex-auto">
+            <div className="bg-white max-w-xl mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
+                <section>
+                    <h1 className="text-3xl text-black font-bold">Generate quiz</h1>
+                </section>
 
-                <div className="space-y-4">
-                    <label className="block">
-                        <span className="text-gray-700">Language:</span>
-                        <input
-                            type="text"
-                            className="mt-1 p-2 block w-full rounded-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
-                            placeholder="Enter the topic"
-                            value={language}
-                            onChange={(e) => setLanguage(e.target.value)}
-                        />
-                    </label>
+                <section className="mt-5">
+                    <form className="space-y-4">
+                        <label className="">
+                            <span className="text-gray-700">Language:</span>
+                            <input
+                                type="text"
+                                className="mt-1 p-2 block w-full rounded-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300 text-black"
+                                placeholder="Enter the topic"
+                                value={language}
+                                onChange={(e) => setLanguage(e.target.value)}
+                            />
+                        </label>
 
-                    <label className="block">
-                        <span className="text-gray-700">Number of Questions:</span>
-                        <input
-                            type="number"
-                            className="mt-1 p-2 block w-full rounded-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
-                            placeholder="Enter the number of questions"
-                            value={numberOfQuestions}
-                            onChange={(e) => setNumberOfQuestions(e.target.value)}
-                        />
-                    </label>
+                        <label className="">
+                            <span className="text-gray-700">Number of Questions:</span>
+                            <input
+                                type="number"
+                                className="mt-1 p-2 block w-full rounded-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300 text-black"
+                                placeholder="Enter the number of questions"
+                                value={numberOfQuestions}
+                                onChange={(e) => setNumberOfQuestions(e.target.value)}
+                            />
+                        </label>
 
-                    <button
-                        className="bg-teal-500 text-white p-2 rounded-md hover:bg-teal-600 focus:outline-none focus:ring focus:border-blue-300"
-                        onClick={generateTest}
-                    >
-                        Generate Test
-                    </button>
-                </div>
+                        <div>
+                            <button
+                                className="items-center bg-teal-500 text-white p-2 rounded-md hover:bg-teal-600 focus:outline-none focus:ring focus:border-blue-300 font-normal py-2 shadow-lg hover:shadow-xl transition duration-200"
+                                onClick={generateTest}
+                            >
+                                Generate Test
+                            </button>
+                        </div>
+                    </form>
+                </section>
 
                 {questions.length > 0 && (
                     <div className="mt-8">
