@@ -23,14 +23,15 @@ export class DatabaseClient {
         }
     }
 
-    async register(email, password) {
+    async register(username, email, password) {
         try {
             const result = await this.client.collection("users").create({
-                email,
-                password,
+                username: username,
+                email: email,
+                password: password,
                 passwordConfirm: password,
             });
-
+            console.log('register result:', result);
             return result;
         } catch (err) {
 
