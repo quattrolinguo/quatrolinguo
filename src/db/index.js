@@ -1,5 +1,4 @@
 import PocketBase from 'pocketbase';
-import { cookies } from 'next/headers';
 import { title } from 'process';
 
 export const POCKET_BASE_URL = "https://quattro-lingo.pockethost.io/";
@@ -24,7 +23,7 @@ export class DatabaseClient {
         }
     }
 
-    async register(username, email, password) {
+    async register(name, email, password) {
         try {
             const result = await this.client.collection("users").create({
                 username: username,
@@ -59,7 +58,7 @@ export class DatabaseClient {
         return this.client.authStore.model;
     }
 
-    async getOptionByID(id) { 
+    async getOptionByID(id) {
         try {
             const result = await this.client.collection("options").get(id);
             console.log('get option by id:', result);
@@ -78,7 +77,7 @@ export class DatabaseClient {
             console.error(err);
         }
     }
-    
+
 
     async getFullQuizById(id) {
         try {
@@ -110,9 +109,9 @@ export class DatabaseClient {
             console.error(err);
         }
     }
-s
+    s
     async createOptions(optionslist, answer) {
-        const optionsid = [];
+        const optionsIdList = [];
         try {
             for (const option of optionslist) {
                 var is_correct = false;
@@ -124,20 +123,20 @@ s
                     is_correct: is_correct,
                 }
                 const result = await this.client.collection("options").create(record);
-                console.log('created answer:', result);
-                optionsid.push(result.id);
+                console.log('created option:', result);
+                optionsIdList.push(result.id);
             }
-            return optionsid
+            return optionsIdList
         } catch (err) {
             console.error(err);
         }
     }
 
-    async createQuestion(question, optionsid) {
+    async createQuestion(question, optionsIdList) {
         try {
             const record = {
                 question: question,
-                options: optionsid
+                options: optionsIdList
             }
             const result = await this.client.collection("questions").create(record);
             console.log('created question:', result);
@@ -158,30 +157,58 @@ s
             }
             const result = await this.client.collection("quizzes").create(record);
             console.log('created quiz', result);
+            return result.id;
         } catch (err) {
             console.error(err);
         }
     }
 
-    async generateQuiz(list, title, language) {
-        const cookieStore = cookies();
-        const user = await this.getUser(cookieStore);
+    async generateQuiz(userId, list, title, language) {
         try {
-            const questionsid = [];
-            
+            const questionsIdList = [];
             for (const item of list) {
-                const answersid = await this.createOptions(item.options, item.answer);
-                console.log(answersid)
-                console.log(item.question)
-                const questionid = await this.createQuestion(item.question, answersid);
-                questionsid.push(questionid);
+                const optionsIdList = await this.createOptions(item.options, item.answer);
+                console.log(optionsIdList)
+                const questionId = await this.createQuestion(item.question, optionsIdList);
+                await this.updateOptionsWithQuestion(optionsIdList, questionId);
+                questionsIdList.push(questionId);
             }
-            this.createQuiz(title, language, questionsid, user.id)
+            const quizId = await this.createQuiz(title, language, questionsIdList, userId)
+            await this.updateQuestionsWithQuiz(questionsIdList, quizId);
+
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async updateQuestionsWithQuiz(questionsIdList, quizId) {
+        try {
+            for (const questionId of questionsIdList) {
+                const result = await this.client.collection("questions").update(questionId, {
+                    'parentQuiz+': quizId,
+                });
+                console.log('updated question:', result);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async updateOptionsWithQuestion(optionsIdList, questionId) {
+        try {
+            for (const optionId of optionsIdList) {
+                const result = await this.client.collection("options").update(optionId, {
+                    'parentQuestion+': questionId,
+                });
+                console.log('updated option:', result);
+            }
         } catch (err) {
             console.error(err);
         }
     }
 }
+
 
 export const db = new DatabaseClient();
 

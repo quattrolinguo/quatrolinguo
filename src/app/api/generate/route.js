@@ -1,11 +1,14 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
 import db from "../../../db";
+import { cookies } from "next/headers";
 
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
 export async function POST(request) {
     const body = await request.json();
+    const cookieStore = cookies();
+    const user = await db.getUser(cookieStore);
     console.log(body);
     const { language, numberOfQuestions, title } = body;
     const prompt = `The language is ${language} and the number of questions is ${numberOfQuestions}`
@@ -28,7 +31,7 @@ export async function POST(request) {
         const content = response.choices[0].message.content;
         const { questions } = JSON.parse(content);
         console.log(questions);
-        await db.generateQuiz(questions, title, language);
+        await db.generateQuiz(user.id, questions, title, language);
         return NextResponse.json(questions)
     } catch (error) {
         return new Response(
