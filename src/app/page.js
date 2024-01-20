@@ -15,11 +15,11 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ language, numberOfQuestions }),
+        body: JSON.stringify({ language: language, numberOfQuestions: numberOfQuestions }),
       });
 
-      const data = await response.json();
-      setQuestions(data.questions);
+      const questions = await response.json();
+      setQuestions(questions);
     } catch (error) {
       console.error('Error generating test:', error);
     }
