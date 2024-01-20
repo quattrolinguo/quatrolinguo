@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { NextResponse } from "next/server";
+import db from "../../../db";
 
 const openai = new OpenAI(process.env.OPENAI_API_KEY);
 
@@ -24,10 +25,10 @@ export async function POST(request) {
             ],
             max_tokens: 400,
         });
-        console.log(response.choices[0].message.content)
         const content = response.choices[0].message.content;
-        const {questions} = JSON.parse(content);
-        console.log(questions)
+        const { questions } = JSON.parse(content);
+        console.log(questions);
+        await db.generateQuiz(questions);
         return NextResponse.json(questions)
     } catch (error) {
         return new Response(

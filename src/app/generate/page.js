@@ -1,9 +1,11 @@
 "use client";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
+    const router = useRouter();
     const [language, setLanguage] = useState('');
     const [numberOfQuestions, setNumberOfQuestions] = useState('');
     const [questions, setQuestions] = useState([]);
@@ -19,7 +21,8 @@ export default function Home() {
             });
 
             const data = await response.json();
-            setQuestions(data.questions);
+            router.push('/');
+            console.log(data)
         } catch (error) {
             console.error('Error generating test:', error);
         }
@@ -65,17 +68,9 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
+                <div>
 
-                {questions.length > 0 && (
-                    <div className="mt-8">
-                        <h2 className="text-2xl mb-4">Generated Questions:</h2>
-                        <ul className="list-disc pl-4 space-y-2">
-                            {questions.map((question, index) => (
-                                <li key={index} className="text-gray-700">{question}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                </div>
             </div>
         </div>
     );

@@ -14,8 +14,17 @@ const getUser = async () => {
     return result;
 }
 
+const isLoggedIn = async () => {
+    const cookieStore = cookies();
+
+    const isLoggedIn = await db.isAuthenticated(cookieStore);
+    return isLoggedIn;
+}
+
+
 export default function Navbar() {
-    const user = getUser();
+    const user = use(getUser());
+    const loggedIn = use(isLoggedIn());
     return (
         <div className="flex justify-between items-center w-screen h-20 px-6 pt-3 bg-transparent">
             <div
@@ -41,7 +50,7 @@ export default function Navbar() {
                     </div>
                 </div>
             </div>
-            {user
+            {loggedIn
                 ? <div>
                     <p>Welcome, {user.username}</p>
                     <Logout />
