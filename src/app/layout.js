@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-red-400 backdrop-blur`} style={{
+      <body className={`${inter.className} bg-red-400 backdrop-blur min-h-screen`} style={{
         background: 'var(--background-gradient, linear-gradient(180deg, rgba(248, 113, 113, 1) 0%, rgba(255, 207, 36, 1) 100%))',
         backdropFilter: 'blur(2px)'
       }}>
