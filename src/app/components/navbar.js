@@ -37,35 +37,61 @@ export default function Navbar() {
             <div className="text-white text-left font-semibold text-3xl pl-8" style={{ opacity: '0.9' }}>
                 Quattro
             </div>
-            <div className="px-6 pl-20">
-                <div className="flex flex-row gap-8 items-center justify-start ">
-                    <div className="text-white text-left font-normal text-xl relative">
-                        <Link href="/">Home</Link>
-                    </div>
-                    <div className="text-white text-left font-normal text-xl relative">
-                        <Link href="/">Payment</Link>
-                    </div>
-                    <div className="text-white text-left font-normal text-xl relative">
-                        <Link href="/">Features</Link>
-                    </div>
-                </div>
-            </div>
             {loggedIn
-                ? <div>
-                    <p>Welcome, {user.username}</p>
-                    <Logout />
-                </div>
-                : <div className="flex flex-row gap-6 items-center justify-start">
-                    <div className="text-dark-dark text-left font-medium text-xl leading-6 relative">
-                        Login
-                    </div>
-                    <div className="bg-[#dc2626] rounded-lg pt-2 px-4 pb-2 flex flex-row gap-2.5 items-center justify-center">
-                        <div className="text-white text-center font-medium text-2xl leading-6 relative flex items-center justify-center">
-                            Register
+                ? <div className="pl-20 px-6 ml-36">
+                    <div className="flex flex-row gap-8 items-center justify-start ">
+                        <div className="text-white text-left font-normal text-xl relative">
+                            <Link href="/">Home</Link>
+                        </div>
+                        <div className="text-white text-left font-normal text-xl relative">
+                            <Link href="/">Payment</Link>
+                        </div>
+                        <div className="text-white text-left font-normal text-xl relative">
+                            <Link href="/">Features</Link>
                         </div>
                     </div>
                 </div>
+                : <div className="pl-20 px-6">
+                    <div className="flex flex-row gap-8 items-center justify-start ">
+                        <div className="text-white text-left font-normal text-xl relative">
+                            <Link href="/">Home</Link>
+                        </div>
+                        <div className="text-white text-left font-normal text-xl relative">
+                            <Link href="/">Payment</Link>
+                        </div>
+                        <div className="text-white text-left font-normal text-xl relative">
+                            <Link href="/">Features</Link>
+                        </div>
+                    </div>
+                </div>}
+            {loggedIn
+                ?
+                <div className="flex flex-row gap-6 items-center justify-start">
+                    <div className="text-dark-dark text-left font-medium text-xl leading-9 relative">
+                        Welcome, {user.username}
+                    </div>
+
+                    <div className="bg-[#e71212df] rounded-lg pt-2 px-4 pb-2 flex flex-row gap-2.5 items-center justify-center">
+                        <div className="text-white text-center font-medium text-2xl leading-6 relative flex items-center justify-center">
+                            <Logout />
+                        </div>
+                    </div>
+                </div>
+                : <div className="flex flex-row gap-6 items-center justify-start">
+                    <Link href="/auth/login">
+                        <div className="text-dark-dark text-left font-medium text-xl leading-6 relative">
+                            Login
+                        </div>
+                    </Link>
+                    <Link href="/auth/register">
+                        <div className="bg-[#dc2626] rounded-lg pt-2 px-4 pb-2 flex flex-row gap-2.5 items-center justify-center">
+                            <div className="text-white text-center font-medium text-2xl leading-6 relative flex items-center justify-center">
+                                Register
+                            </div>
+                        </div>
+                    </Link>
+                </div>
             }
-        </div>
+        </div >
     );
 }

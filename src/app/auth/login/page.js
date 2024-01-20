@@ -73,6 +73,7 @@ function LoginPage() {
                                     Login
                                 </button>
                             </div>
+                            {error && <p className='text-black'>{error}</p>}
                         </form>
                     </section>
 
