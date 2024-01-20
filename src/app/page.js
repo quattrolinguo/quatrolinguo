@@ -10,12 +10,12 @@ export default function Home() {
 
   const generateTest = async () => {
     try {
-      const response = await fetch('/api/generateTest', {
+      const response = await fetch('/api/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ topic, numberOfQuestions }),
+        body: JSON.stringify({ language, numberOfQuestions }),
       });
 
       const data = await response.json();
@@ -34,7 +34,7 @@ export default function Home() {
             <span className="text-gray-700">Language:</span>
             <input
               type="text"
-              className="mt-1 p-2 block w-full rounded-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
+              className="text-black mt-1 p-2 block w-full rounded-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Enter the topic"
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
@@ -45,7 +45,7 @@ export default function Home() {
             <span className="text-gray-700">Number of Questions:</span>
             <input
               type="number"
-              className="mt-1 p-2 block w-full rounded-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
+              className="text-black mt-1 p-2 block w-full rounded-md border border-gray-300 focus:outline-none focus:ring focus:border-blue-300"
               placeholder="Enter the number of questions"
               value={numberOfQuestions}
               onChange={(e) => setNumberOfQuestions(e.target.value)}
