@@ -32,7 +32,7 @@ export default function Home() {
                 </section>
 
                 <section className="mt-5">
-                    <form className="space-y-5 flex flex-col">
+                    <div className="space-y-5 flex flex-col">
                         <label className="">
                             <span className="text-gray-700">Language:</span>
                             <input
@@ -63,7 +63,7 @@ export default function Home() {
                                 Generate Test
                             </button>
                         </div>
-                    </form>
+                    </div>
                 </section>
 
                 {questions.length > 0 && (
