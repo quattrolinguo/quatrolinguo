@@ -31,6 +31,7 @@ export default function Home() {
             setLoading(false);
         }
     };
+    generateTest();
     return (
         <div className="body-bg pt-12 md:pt-20 pb-6 px-2 md:px-0 font-light flex-auto">
             <div className="bg-white max-w-xl mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">

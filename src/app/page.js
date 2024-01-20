@@ -1,5 +1,4 @@
-import Image from "next/image";
-import Logout from "./components/logout";
+
 import Link from "next/link";
 import db from "../db";
 import { cookies } from "next/headers";
@@ -35,5 +34,6 @@ export default async function Home() {
       })}
       <Link href="/generate">Create test</Link>
     </main>
+    
   );
 }
