@@ -9,9 +9,11 @@ export default function Home() {
     const [language, setLanguage] = useState('');
     const [numberOfQuestions, setNumberOfQuestions] = useState('');
     const [questions, setQuestions] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const generateTest = async () => {
         try {
+            setLoading(true);
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: {
@@ -21,10 +23,12 @@ export default function Home() {
             });
 
             const data = await response.json();
+            setLoading(false);
             router.push('/');
             console.log(data)
         } catch (error) {
             console.error('Error generating test:', error);
+            setLoading(false);
         }
     };
     generateTest();
@@ -64,7 +68,14 @@ export default function Home() {
                                 className="items-center bg-teal-500 text-white p-2 rounded-md hover:bg-teal-600 focus:outline-none focus:ring focus:border-blue-300 font-normal py-2 shadow-lg hover:shadow-xl transition duration-200"
                                 onClick={generateTest}
                             >
-                                Generate Test
+                                {loading ? (
+                                    <div className="flex">
+                                        <div className="animate-spin h-5 w-5 mt-0.5 border-2 rounded-lg border-white"></div>
+                                        <span className="ml-2">Generating...</span>
+                                    </div>
+                                ) : (
+                                    'Generate Test'
+                                )}
                             </button>
                         </div>
                     </div>

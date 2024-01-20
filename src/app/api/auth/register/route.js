@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(request) {
     try {
-        const { email, password } = await request.json();
-        const result = await db.register(email, password);
+        const { username, email, password } = await request.json();
+        const result = await db.register(username, email, password);
 
         return NextResponse.json(result);
     } catch (err) {
