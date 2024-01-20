@@ -1,4 +1,3 @@
-"use client";
 
 import Link from "next/link";
 import db from "../db";
@@ -34,18 +33,6 @@ export default async function Home() {
         )
       })}
       <Link href="/generate">Create test</Link>
-      <div>
-      <h1>Tests</h1>
-      <ul>
-        {tests.map((test) => (
-          <li key={test.id}>{/* Render your test data here */}</li>
-        ))}
-      </ul>
-      <button onClick={handlePrevPage} disabled={page === 1}>
-        Previous Page
-      </button>
-      <button onClick={handleNextPage}>Next Page</button>
-    </div>
     </main>
     
   );
