@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
+import Image from "next/image";
 
 export default function Home() {
   const [animalInput, setAnimalInput] = useState("");
@@ -24,7 +25,7 @@ export default function Home() {
 
       setResult(data.result);
       setAnimalInput("");
-    } catch(error) {
+    } catch (error) {
       // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
@@ -39,7 +40,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <img src="/dog.png" className={styles.icon} />
+        <Image src="/dog.png" className={styles.icon} alt="dog" />
         <h3>Name my pet</h3>
         <form onSubmit={onSubmit}>
           <input

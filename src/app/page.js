@@ -25,9 +25,9 @@ export default function Home() {
     }
   };
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-red-400">
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="max-w-md w-full p-8 bg-white rounded-lg shadow-lg">
-        <h1 className="text-3xl mb-6 text-black">Generate quiz</h1>
+        <h1 className="text-3xl mb-6 text-black ">Generate quiz</h1>
 
         <div className="space-y-4">
           <label className="block">

@@ -25,7 +25,7 @@ export default function Home() {
         }
     };
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-red-400 backdrop-blur" style={{
+        <div className="flex min-h-screen flex-col items-center justify-between p-24 bg-red-400 backdrop-blur" style={{
             background: 'var(--background-gradient, linear-gradient(180deg, rgba(248, 113, 113, 1) 0%, rgba(255, 207, 36, 1) 100%))',
             backdropFilter: 'blur(2px)'
         }}>
@@ -74,6 +74,6 @@ export default function Home() {
                     </div>
                 )}
             </div>
-        </main>
+        </div>
     );
 }
