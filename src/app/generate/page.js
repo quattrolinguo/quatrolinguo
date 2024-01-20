@@ -10,7 +10,7 @@ export default function Home() {
 
     const generateTest = async () => {
         try {
-            const response = await fetch('/api/generateTest', {
+            const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
