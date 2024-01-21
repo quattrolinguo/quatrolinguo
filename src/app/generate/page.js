@@ -75,13 +75,13 @@ export default function Home() {
                         </label>
                         <label className="">
                             <span className="text-gray-700">Difficulty:</span>
-                            <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} id="dropdown" name="dropdown" class="mt-1 block w-full p-2 border ease-in-out transform hover:bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 text-blac">
-                                <option value="option1">A1</option>
-                                <option value="option2">A2</option>
-                                <option value="option3">B1</option>
-                                <option value="option4">B2</option>
-                                <option value="option5">C1</option>
-                                <option value="option6">C2</option>
+                            <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} id="dropdown" name="dropdown" placeholder="Choose the difficulty of your quiz" className="mt-1 block w-full p-2 border ease-in-out transform hover:bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 text-black">
+                                <option className="text-black" value="option1">A1</option>
+                                <option className="text-black" value="option2">A2</option>
+                                <option className="text-black" value="option3">B1</option>
+                                <option className="text-black" value="option4">B2</option>
+                                <option className="text-black" value="option5">C1</option>
+                                <option className="text-black" value="option6">C2</option>
                             </select>
                         </label>
 
