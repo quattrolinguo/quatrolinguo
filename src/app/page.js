@@ -29,7 +29,9 @@ export default async function Home() {
         </div>
 
       </div>
-      <Link href="/generate">Create test</Link>
+      <Link href="/generate">
+        <div className="items-center bg-teal-500 text-white p-2 rounded-md hover:bg-teal-600 focus:outline-none focus:ring focus:border-blue-300 font-normal py-2 shadow-lg hover:shadow-xl transition duration-200">Create test</div>
+      </Link>
     </main>
 
   );
