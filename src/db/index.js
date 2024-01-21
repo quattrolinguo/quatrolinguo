@@ -1,5 +1,4 @@
 import PocketBase from 'pocketbase';
-import { title } from 'process';
 
 export const POCKET_BASE_URL = "https://quattro-lingo.pockethost.io/";
 
@@ -58,9 +57,9 @@ export class DatabaseClient {
         return this.client.authStore.model;
     }
 
-    async getOptionByID(id) {
+    async getOption(id) {
         try {
-            const result = await this.client.collection("options").get(id);
+            const result = await this.client.collection("options").getOne(id);
             console.log('get option by id:', result);
             return result;
         } catch (err) {
@@ -68,9 +67,33 @@ export class DatabaseClient {
         }
     }
 
-    async getQuestionByQuizId(id) {
+    async getOptionIdList(id) {
         try {
-            const result = await this.client.collection("quizzes").getOne(id);
+            const result = await this.client.collection("questions").getOne(id);
+            console.log('get optionIdList:', result.options)
+            return result.options;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async getOptionList(questionId) {
+        try {
+            const optionIdList = await db.getOptionIdList(questionId);
+            const optionList = [];
+            for (const optionId of optionIdList) {
+                const option = await db.getOption(optionId);
+                optionList.push(option);
+            }
+            return optionList
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async getQuestion(id) {
+        try {
+            const result = await this.client.collection("questions").getOne(id);
             console.log('get question by id:', result);
             return result;
         } catch (err) {
@@ -78,6 +101,29 @@ export class DatabaseClient {
         }
     }
 
+    async getQuestionIdList(id) {
+        try {
+            const result = await this.client.collection("quizzes").getOne(id);
+            console.log('get questions:', result.questions)
+            return result.questions;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async getQuestionList(quizId) {
+        try {
+            const questionIdList = await db.getQuestionIdList(quizId);
+            const questionList = [];
+            for (const questionId of questionIdList) {
+                const question = await db.getQuestion(questionId);
+                questionList.push(question);
+            }
+            return questionList;
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     async getFullQuizById(id) {
         try {
