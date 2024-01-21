@@ -16,6 +16,7 @@ async function getTests() {
 
 export default async function Home() {
   const tests = await getTests();
+  console.log(tests)
   return (
     <main className="flex flex-col items-center justify-between p-24">
       <div className="container mx-auto p-4">
