@@ -32,7 +32,8 @@ export class DatabaseClient {
             console.log('register result:', result);
             return result;
         } catch (err) {
-
+            console.error(err);
+            throw new Error("Invalid email or password");
         }
     }
 
