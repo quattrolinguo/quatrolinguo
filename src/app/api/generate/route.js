@@ -10,8 +10,8 @@ export async function POST(request) {
     const cookieStore = cookies();
     const user = await db.getUser(cookieStore);
     console.log(body);
-    const { language, numberOfQuestions, title } = body;
-    const prompt = `The language is ${language} and the number of questions is ${numberOfQuestions}`
+    const { language, numberOfQuestions, title, difficulty } = body;
+    const prompt = `The language is ${language} and the number of questions is ${numberOfQuestions}. It should be ${difficulty} difficulty.}`
     try {
         const response = await openai.chat.completions.create({
             model: "gpt-3.5-turbo-1106",
@@ -19,7 +19,7 @@ export async function POST(request) {
             messages: [
                 {
                     "role": "system",
-                    "content": "You are a language teacher. Given a language and a number of questions, you have to generate a multiple choice quiz for your students in that language's proficiency in JSON format. Focus on grammar and subject verb agreement. Always format JSON in {language, questions[]} format"
+                    "content": "You are a language teacher. Given a language and a number of questions, you have to generate a multiple choice quiz for your students in that language's proficiency in JSON format. Focus on grammar and subject verb agreement. Always format JSON in {language:'language', questions:[{question : 'question', options: ['options'], answer: 'answer'}]} format for each question in the quiz. Please double check that the answer is accurate."
                 },
                 {
                     "role": "user",
