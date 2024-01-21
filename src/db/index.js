@@ -22,10 +22,9 @@ export class DatabaseClient {
         }
     }
 
-    async register(name, email, password) {
+    async register(username, email, password) {
         try {
             const result = await this.client.collection("users").create({
-                username: username,
                 email: email,
                 password: password,
                 passwordConfirm: password,
