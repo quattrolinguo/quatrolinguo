@@ -10,6 +10,7 @@ export default function Home() {
     const [numberOfQuestions, setNumberOfQuestions] = useState('');
     const [title, setTitle] = useState('');
     const [questions, setQuestions] = useState([]);
+    const [difficulty, setDifficulty] = useState('A1');
     const [loading, setLoading] = useState(false);
 
     const generateTest = async () => {
@@ -20,7 +21,7 @@ export default function Home() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ language, numberOfQuestions, title }),
+                body: JSON.stringify({ language, numberOfQuestions, title, difficulty }),
             });
 
             const data = await response.json();
@@ -71,6 +72,17 @@ export default function Home() {
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                             />
+                        </label>
+                        <label className="">
+                            <span className="text-gray-700">Difficulty:</span>
+                            <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} id="dropdown" name="dropdown" class="mt-1 block w-full p-2 border ease-in-out transform hover:bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 text-blac">
+                                <option value="option1">A1</option>
+                                <option value="option2">A2</option>
+                                <option value="option3">B1</option>
+                                <option value="option4">B2</option>
+                                <option value="option5">C1</option>
+                                <option value="option6">C2</option>
+                            </select>
                         </label>
 
                         <div>
