@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
-
+import DropdownDifficulty from "../components/Dropdowns/DropdownDifficulty";
 import { useState, useEffect } from 'react';
 
 export default function Home() {
@@ -12,6 +12,9 @@ export default function Home() {
     const [questions, setQuestions] = useState([]);
     const [difficulty, setDifficulty] = useState('A1');
     const [loading, setLoading] = useState(false);
+    const handleDifficultyChange = (newDifficulty) => {
+        setDifficulty(newDifficulty);
+      };
 
     const generateTest = async () => {
         try {
@@ -73,17 +76,24 @@ export default function Home() {
                                 onChange={(e) => setTitle(e.target.value)}
                             />
                         </label>
-                        <label className="">
+                        {/* <label className="">
+                        {/* <label className="" onMouseEnter={() => { document.getElementById('dropdown-container').style.display = 'inline' }}
+                            onMouseLeave={() => {document.getElementById('dropdown-container').style.display = 'none';}}> 
                             <span className="text-gray-700">Difficulty:</span>
+                            
                             <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} id="dropdown" name="dropdown" placeholder="Choose the difficulty of your quiz" className="mt-1 block w-full p-2 border ease-in-out transform hover:bg-gray-100 border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 text-black">
-                                <option className="text-black" value="option1">A1</option>
-                                <option className="text-black" value="option2">A2</option>
-                                <option className="text-black" value="option3">B1</option>
-                                <option className="text-black" value="option4">B2</option>
-                                <option className="text-black" value="option5">C1</option>
-                                <option className="text-black" value="option6">C2</option>
+                               
+                                    <option className="text-black" value="option1">A1</option>
+                                    <option className="text-black" value="option2">A2</option>
+                                    <option className="text-black" value="option3">B1</option>
+                                    <option className="text-black" value="option4">B2</option>
+                                    <option className="text-black" value="option5">C1</option>
+                                    <option className="text-black" value="option6">C2</option>
+                              
                             </select>
-                        </label>
+                            
+                        </label> */}
+                        <DropdownDifficulty onDifficultyChange = {handleDifficultyChange} />
 
                         <div>
                             <button
