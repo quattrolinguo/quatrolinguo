@@ -12,7 +12,6 @@ const DropdownDifficulty =({onDifficultyChange}) => {
     const newDifficulty = event.target.value;
     setDifficulty(newDifficulty);
 
-    // Notify the parent component about the updated difficulty
     onDifficultyChange(newDifficulty);
   };
 

@@ -125,22 +125,17 @@ export class DatabaseClient {
         }
     }
 
-    async getFullQuizById(id) {
+    async getQuizData(id) {
         try {
-            const result = [];
-            const questions = await this.client.collection("quizzes").getQuestionByQuizId(id).questions;
-
-            for (const question of questions) {
-                const options = await this.client.collection("questions").getOptionsByQuestionId(question.id);
-                for (const option of options) {
-                    const answer = await this.client.collection("options").getAnswerByOptionId(option.id);
-                    result[question.id] = {
-                        question: question.question,
-                        options: options,
-                        answer: answer,
-                    }
-                }
-            }
+            const result = await this.client.collection("quizzes").getOne(id, {
+                expand: 'questions,questions.options'
+            });
+            console.log(result)
+            const quizData = result.expand.questions.map(question => [
+                question, question.expand.options
+            ]);
+            console.log('get quiz by id:', quizData)
+            return quizData;
         } catch (err) {
             console.error(err);
         }
