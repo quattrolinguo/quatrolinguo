@@ -15,7 +15,7 @@ function LoadingAnimation() {
 }
 
 export default function QuizPage({ params }) {
-    const [quizData, setQuizData] = useState({ questions: [], options: {} });
+    const [quizData, setQuizData] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(true); // Added loading state
     const [selectedOption, setSelectedOption] = useState(null);
@@ -27,15 +27,18 @@ export default function QuizPage({ params }) {
     useEffect(() => {
         async function fetchQuestions() {
             try {
-                const questions = await db.getQuestionList(params.id);
-                const options = {};
+                // const questions = await db.getQuestionList(params.id);
+                // const options = {};
 
-                for (const question of questions) {
-                    const questionOptions = await db.getOptionList(question.id);
-                    options[question.id] = questionOptions;
-                }
+                // for (const question of questions) {
+                //     const questionOptions = await db.getOptionList(question.id);
+                //     options[question.id] = questionOptions;
+                // }
 
-                setQuizData({ questions, options });
+                // setQuizData({ questions, options });
+                const quizData = await db.getQuizData(params.id);
+                setQuizData(quizData)
+
             } catch (err) {
                 console.error(err);
             } finally {
@@ -46,7 +49,7 @@ export default function QuizPage({ params }) {
     }, [params.id]);
 
     const handleNext = () => {
-        setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, quizData.questions.length - 1));
+        setCurrentQuestionIndex((prevIndex) => Math.min(prevIndex + 1, quizData.length - 1));
     };
 
     const handlePrev = () => {
@@ -66,10 +69,10 @@ export default function QuizPage({ params }) {
 
                 <section>
                     <div className="">
-                        {quizData.questions.length > 0 && (
+                        {quizData.length > 0 && (
                             <QuizCard
-                                question={quizData.questions[currentQuestionIndex]}
-                                options={quizData.options[quizData.questions[currentQuestionIndex].id] || []}
+                                question={quizData[currentQuestionIndex][0]}
+                                options={quizData[currentQuestionIndex][1] || []}
                             />
                         )}
                     </div>
@@ -85,7 +88,7 @@ export default function QuizPage({ params }) {
                         <button
                             className="items-center bg-teal-500 text-white p-2 rounded-md hover:bg-teal-600 focus:outline-none focus:ring focus:border-blue-300 font-normal py-2 shadow-lg hover:shadow-xl transition duration-200"
                             onClick={handleNext}
-                            disabled={currentQuestionIndex === quizData.questions.length - 1}
+                            disabled={currentQuestionIndex === quizData.length - 1}
                         >
                             Next
                         </button>
