@@ -2,19 +2,29 @@
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import DropdownDifficulty from "../components/Dropdowns/DropdownDifficulty";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import GenerateQuizForm from "../components/Dropdowns/GenerateQuizForm";
 
 export default function Home() {
     const router = useRouter();
     const [language, setLanguage] = useState('');
     const [numberOfQuestions, setNumberOfQuestions] = useState('');
     const [title, setTitle] = useState('');
-    const [questions, setQuestions] = useState([]);
+  
     const [difficulty, setDifficulty] = useState('A1');
     const [loading, setLoading] = useState(false);
     const handleDifficultyChange = (newDifficulty) => {
         setDifficulty(newDifficulty);
       };
+    const handleLanguageChange = (newLanguage) => {
+        setLanguage(newLanguage);
+    };
+    const handleNumberOfQuestionsChange = (newNumberOfQuestions) => {
+        setNumberOfQuestions(newNumberOfQuestions);
+    };
+    const handleTitleChange = (newTitle) => {
+        setTitle(newTitle);
+    };
 
     const generateTest = async () => {
         try {
@@ -45,7 +55,13 @@ export default function Home() {
 
                 <section className="mt-5">
                     <div className="space-y-5 flex flex-col">
-                        <label className="">
+                    <GenerateQuizForm 
+                    onDifficultyChange   ={handleDifficultyChange}
+                    onLangChange         ={handleLanguageChange}
+                    onNumQuestionsChange ={handleNumberOfQuestionsChange}
+                    onTitlechange        ={handleTitleChange}     
+                    />
+                        {/* <label className="">
                             <span className="text-gray-700">Language:</span>
                             <input
                                 type="text"
@@ -75,7 +91,7 @@ export default function Home() {
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
                             />
-                        </label>
+                        </label> */}
                         {/* <label className="">
                         {/* <label className="" onMouseEnter={() => { document.getElementById('dropdown-container').style.display = 'inline' }}
                             onMouseLeave={() => {document.getElementById('dropdown-container').style.display = 'none';}}> 
@@ -93,7 +109,7 @@ export default function Home() {
                             </select>
                             
                         </label> */}
-                        <DropdownDifficulty onDifficultyChange = {handleDifficultyChange} />
+                        {/* <DropdownDifficulty onDifficultyChange = {handleDifficultyChange} /> */}
 
                         <div>
                             <button

@@ -17,7 +17,7 @@ const DropdownDifficulty =({onDifficultyChange}) => {
   };
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    // <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label" label="Difficulty">Difficulty</InputLabel>
         <Select
@@ -35,7 +35,7 @@ const DropdownDifficulty =({onDifficultyChange}) => {
           <MenuItem value={"C2"}>C2</MenuItem>
         </Select>
       </FormControl>
-    </Box>
+    // </Box>
   );
 }
 
