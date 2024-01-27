@@ -28,6 +28,7 @@ export async function POST(request) {
             ],
             max_tokens: 400,
         });
+        console.log(response);
         const content = response.choices[0].message.content;
         const { questions } = JSON.parse(content);
         console.log(questions);
