@@ -10,12 +10,12 @@ export default function Home() {
     const [language, setLanguage] = useState('');
     const [numberOfQuestions, setNumberOfQuestions] = useState('');
     const [title, setTitle] = useState('');
-  
+
     const [difficulty, setDifficulty] = useState('A1');
     const [loading, setLoading] = useState(false);
     const handleDifficultyChange = (newDifficulty) => {
         setDifficulty(newDifficulty);
-      };
+    };
     const handleLanguageChange = (newLanguage) => {
         setLanguage(newLanguage);
     };
@@ -55,12 +55,12 @@ export default function Home() {
 
                 <section className="mt-5">
                     <div className="space-y-5 flex flex-col">
-                    <GenerateQuizForm 
-                    onDifficultyChange   ={handleDifficultyChange}
-                    onLangChange         ={handleLanguageChange}
-                    onNumQuestionsChange ={handleNumberOfQuestionsChange}
-                    onTitlechange        ={handleTitleChange}     
-                    />
+                        <GenerateQuizForm
+                            onDifficultyChange={handleDifficultyChange}
+                            onLangChange={handleLanguageChange}
+                            onNumQuestionsChange={handleNumberOfQuestionsChange}
+                            onTitlechange={handleTitleChange}
+                        />
                         {/* <label className="">
                             <span className="text-gray-700">Language:</span>
                             <input
